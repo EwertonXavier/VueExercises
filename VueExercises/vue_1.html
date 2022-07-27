@@ -1,17 +1,21 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Intro to v-bind</title>
-		<meta charset="UTF-8">
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<style>
-			.container{background:#cecece;}
-		</style>
-	</head>
-	<body>
-	
-	<div id="app">
-		<!--
+  <head>
+    <title>Intro to v-bind</title>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .container {
+        background: #cecece;
+      }
+	  .highlight{
+		border: 3px solid yellow;
+	  }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!--
 		//step 1: open console
 		//step 2: inspect "look at me!" HTML
 		//step 3: notice how the class is set for the span to "container"
@@ -32,31 +36,32 @@
 			v-bind:style="'display:block;margin-top:20px;'"
 			v-bind:alt="'New Alt Text'"
 		
-		WARNING: Vue.js doesn't like dynamically setting IDs. Try it!
+		WARNING: Vue.js doesn't like dynamically setting IDs. Try it! <-- Tried and it worked without errors :D
 		
 		ASYNCHRONOUS LEARNING EXERCISE
 			1. Create an image and set the following attributes with Vue {src, alt, title}
 			2. Augment the span below to include another class called "highlight", which has a yellow border.
 		-->
-		<span v-bind:class="loadClass">
-			look at me!
-		</span>
-	</div>
-	
-	<script>
-	var app = new Vue({
-		//Bind Vue object to HTML element through query selector
-		el: '#app',
-		data:{
-			loadClass : 'container',
-			//newStyle : 'font-size:30px;',
-			//newAlt : 'dynamically set alt!'
-			
-		}
-	});
-	
-	
-	
-	</script>
-	</body>
+      <span v-bind:class="loadClass" > look at me! </span>
+
+      <img v-bind:src="imgSrc" v-bind:alt="imgAlt" v-bind:title="imgTitle" />
+    </div>
+
+    <script>
+      var app = new Vue({
+        //Bind Vue object to HTML element through query selector
+        el: "#app",
+        data: {
+          loadClass: "container highlight",
+          imgSrc:
+            "https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg",
+          imgAlt:
+            "Vue.js Logo. Two letter V one above the other in black and green color.",
+          imgTitle: "Vue Logo",
+          //newStyle : 'font-size:30px;',
+          //newAlt : 'dynamically set alt!'
+        },
+      });
+    </script>
+  </body>
 </html>
