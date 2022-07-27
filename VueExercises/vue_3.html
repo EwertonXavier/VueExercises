@@ -1,44 +1,63 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>v-if If Statements</title>
-		<meta charset="UTF-8">
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<style>
-			.special {background:yellow; border: 1px dotted #fe0000; padding:30px; display:block; text-align:center;}
-			.important {font-weight:bold; font-size:30px;}
-		</style>
-	</head>
-	<body>
-	
-	<div id="app">
-		<span v-if="profile">
-			Profile of {{profile.fname}} {{profile.lname}} 
-		</span>
-		<span v-else>
-			No Profile Data found.
-		</span>
-	</div>
-	
-	<script>
-	var app = new Vue({
-		el: '#app',
-		
-		data:{
-			/*
-			profile:{
-				fname: "John",
-				lname: "Doe"	
-			}
-			*/
-		}
-		
-	});
-	</script>
-	
-		<!--
+  <head>
+    <title>v-if If Statements</title>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .special {
+        background: yellow;
+        border: 1px dotted #fe0000;
+        padding: 30px;
+        display: block;
+        text-align: center;
+      }
+      .important {
+        font-weight: bold;
+        font-size: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div v-if="profile">
+        <h3>Profile of {{profile.fname}} {{profile.lname}}</h3>
+        <image
+          v-if="profile.avatarImage"
+          v-bind:src="profile.avatarImage"
+          alt="Profile picture"
+        />
+        <image
+          v-else
+          src="https://via.placeholder.com/600x400"
+          alt="No profile picture"
+        ></image>
+        <div v-if="profile.job_title">Profession: {{profile.job_title}}</div>
+		<div v-else>No profession available</div>
+      </div>
+
+      <span v-else> No Profile Data found. </span>
+    </div>
+
+    <script>
+      var app = new Vue({
+        el: "#app",
+
+        data: {
+          profile: {
+            fname: "Ewerton",
+            lname: "Xavier de Freitas",
+            job_title: "Solutions Architect",
+            avatarImage:
+              "https://media-exp1.licdn.com/dms/image/C5603AQHQkh3_DQLeTg/profile-displayphoto-shrink_200_200/0/1609458087352?e=1660176000&v=beta&t=lT1WI7VdcZgS_WHPtOk_2i-xv9XxCmpqzr4QN0B7Kno",
+          },
+        },
+      });
+    </script>
+
+    <!--
 		//step 1: Read Code Above
-		//step 2: Does the profile show up?
+		//step 2: Does the profile show up? I think it does not
 		
 		v-if="boolean_expression"
 		v-else-if="boolean_expression"
@@ -55,6 +74,5 @@
 		2. Create a figure, figcaption, and image markup which acts as a description for yourself
 			(Something like this https://www.w3schools.com/howto/howto_css_cards.asp)
 		3. Write conditionals if information is missing (i.e. 'no bio available' if bio is blank, generic image if no pic is found)
-		-->
-	</body>
+		--></body>
 </html>
