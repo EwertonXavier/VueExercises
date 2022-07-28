@@ -1,62 +1,122 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-	
-		<title>J1 Practice</title>
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<style>
-			.formfield{margin-bottom:10px;}
-		</style>
-	</head>
-	<body>
-	<p>Dog Treats Problem. <a href="https://cemc.uwaterloo.ca/contests/computing/2020/index.html">from the J1 problem hosted by the CCC.</a></p>
-	<div id="app">
-		<div class="formfield">
-			<label>Small Treats: <label> <input v-model="treat_qty_small">
-		</div>
-		<div class="formfield">
-			<label>Medium Treats: <label> <input v-model="treat_qty_medium">
-		</div>
-		<div class="formfield">
-			<label>Large Treats: <label> <input v-model="treat_qty_large">
-		</div>
-		<div id="result">
-			<div><label>show diagnostics:</label><input type="checkbox" v-model="treat_diagnostics"></div>
-			<div v-if="treat_diagnostics">Treat Total: {{treat_total}}</div>
-			<div v-if="treat_diagnostics">Is_Happy: {{is_happy}}</div>
-			<span v-if="is_happy">{{dog_name}} is Happy!</span>
-			<span v-else>{{dog_name}} is sad..</span>
-		</div>
-	</div>
-	
-	<script>
-	var app = new Vue({
-		el: '#app',
-		data:{
-			treat_diagnostics:false,
-			dog_name:"Barley",
-			treat_qty_small:0,
-			treat_qty_medium:0,
-			treat_qty_large:0,
-			treat_value_small:1,
-			treat_value_medium:2,
-			treat_value_large:3
-		},
-		computed:{
-			treat_total:function(){
-				return (this.treat_qty_small * this.treat_value_small) + 
-				(this.treat_qty_medium * this.treat_value_medium) + 
-				(this.treat_qty_large * this.treat_value_large);	
-			},
-			is_happy:function(){
-				
-				return this.treat_total>=10;	
-			}
-		}
-	});
-	
-	</script>
-	<!--
+  <head>
+    <title>J1 Practice</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .formfield {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      Player placement group
+      <a
+        href="https://cemc.uwaterloo.ca/contests/computing/2016/stage%201/juniorEn.pdf"
+        >from the J1 problem hosted by the CCC.</a
+      >
+    </p>
+    <div id="app2">
+      <table style="width:50%">
+        <thead>
+          <th>Game number</th>
+          <th>Win</th>
+          <th>Lost</th>
+        </thead>
+        <tbody>
+          <tr v-for="game in games" class="formfield" style="text-align:center ;">
+            <td>{{game.number}}</td>
+            <td>
+              <input
+                type="radio"
+                v-bind:name="game.number"
+                value="win"
+                v-model="game.result"
+              />
+            </td>
+            <td>
+              <input
+                type="radio"
+                v-bind:name="game.number"
+                value="lost"
+                v-model="game.result"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div id="result">
+        <div v-if="totalWins">Number of wins: {{totalWins}}</div>
+        <h3>The player current status is: <span>{{result}}</span></h3>
+      </div>
+    </div>
+
+    <script>
+      var app = new Vue({
+        el: "#app2",
+        data: {
+          games: [
+            { number: 1, result: "win" },
+            { number: 2, result: "lost" },
+            { number: 3, result: "lost" },
+            { number: 4, result: "lost" },
+            { number: 5, result: "win" },
+            { number: 6, result: "win" },
+          ],
+        },
+        computed: {
+          totalWins: function () {
+            let counter = 0;
+            this.games.forEach((game) => {
+              if (game.result === "win") counter++;
+            });
+            return counter;
+          },
+          group: function () {
+            let counter = this.totalWins;
+            let group;
+            if (counter >= 5) {
+              group = 1;
+            } else if (counter >= 3) {
+              group = 2;
+            } else if (counter >= 1) {
+              group = 3;
+            } else {
+              group = -1;
+            }
+
+            return group;
+          },
+          result: function () {
+            switch (this.group) {
+              case -1:
+                return "Player Eliminated";
+              default:
+                return "Placed in group " + this.group;
+            }
+          },
+        },
+      });
+    </script>
+    <!--Problem J1: Tournament Selection
+		Problem Description
+		Each player in a tournament plays six games. There are no ties. The tournament director places
+		the players in groups based on the results of games as follows:
+		• if a player wins 5 or 6 games, they are placed in Group 1;
+		• if a player wins 3 or 4 games, they are placed in Group 2;
+		• if a player wins 1 or 2 games, they are placed in Group 3;
+		• if a player does not win any games, they are eliminated from the tournament.
+		Write a program to determine which group a player is placed in.
+		Input Specification
+		The input consists of six lines, each with one of two possible letters: W (to indicate a win) or L (to
+		indicate a loss).
+		Output Specification
+		The output will be either 1, 2, 3 (to indicate which Group the player should be placed in) or -1
+		(to indicate the player has been eliminated).-->
+
+    <!--
 		v-model will allow you to quickly bind form elements to the data property.
 		Make sure to set a default value!
 		The Computed property can be used like data, except for values that are calculated from data properties.
@@ -68,5 +128,5 @@
 		- Build using v-model and computed properties!
 	
 	-->
-	</body>
+  </body>
 </html>
