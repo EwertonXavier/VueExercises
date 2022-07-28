@@ -58,12 +58,12 @@
         el: "#app2",
         data: {
           games: [
-            { number: 1, result: "win" },
+            { number: 1, result: "lost" },
             { number: 2, result: "lost" },
             { number: 3, result: "lost" },
             { number: 4, result: "lost" },
-            { number: 5, result: "win" },
-            { number: 6, result: "win" },
+            { number: 5, result: "lost" },
+            { number: 6, result: "lost" },
           ],
         },
         computed: {
@@ -92,7 +92,7 @@
           result: function () {
             switch (this.group) {
               case -1:
-                return "Player Eliminated";
+                return "Eliminated";
               default:
                 return "Placed in group " + this.group;
             }
